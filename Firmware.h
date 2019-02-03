@@ -8,7 +8,7 @@
 #define _HVSP_H_
 #include "Arduino.h"
 //add your includes for the project HVSP here
-
+#include <avr/wdt.h>
 
 //end of add your includes here
 

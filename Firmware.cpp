@@ -34,10 +34,13 @@ void setup() {
 	pinMode(SDO, OUTPUT);     // Configured as input when in programming mode
 	digitalWrite(RST, HIGH);  // Turns off HVRESET
 	Serial.begin(19200);
+	Serial.println("Hit any key to start");
 }
 
 void loop() {
 	if (Serial.available() > 0) {
+		wdt_enable(WDTO_8S);
+		Serial.println("### Watchdog enabled: if the chip is not responding the program will reset.");
 		Serial.read();
 		Serial.print("Chip reset initiated");
 		pinMode(SDO, OUTPUT);     // SDO to output
@@ -71,6 +74,7 @@ void loop() {
 		digitalWrite(VCC, LOW);    // Vcc Off
 		digitalWrite(RST, HIGH);   // 12v Off
 		Serial.println("DONE!");
+		wdt_reset();
 	}
 }
 
